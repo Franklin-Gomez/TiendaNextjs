@@ -14,7 +14,7 @@ export default function page() {
 
                 <Link
                 href={'/products/new'}
-                className='bg-amber-300 w-full lg:w-auto text-xl px-10 py-3 text-center font-bold cursor-pointer'
+                className='bg-amber-300 hover:bg-amber-400 w-full lg:w-auto text-xl px-10 py-3 text-center font-bold cursor-pointer'
                 > Crear Producto </Link>
 
                 <ProductSearchForm/>
