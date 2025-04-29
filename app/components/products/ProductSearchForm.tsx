@@ -1,8 +1,10 @@
+"use client"
 
 export default function ProductSearchForm() {
 
     const handleSearchForm = ( formData : FormData ) => { 
         console.log("desde handle search Form")
+        
     }
 
     return (

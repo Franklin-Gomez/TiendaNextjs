@@ -5,7 +5,7 @@ export default function RootLayout({ children  }: Readonly<{ children: React.Rea
     return (
         <>
         
-            <div className="md:flex">
+            <div className=" container mx-auto md:flex">
                 
                 <Sidebar/>
 

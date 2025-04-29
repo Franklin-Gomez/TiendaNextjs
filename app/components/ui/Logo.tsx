@@ -4,11 +4,11 @@ export default function Logo() {
     return (
         <div className="flex justify-center mt-5">
             
-            <div className="relative w-40 h-40">
+            <div className="relative w-full h-40 rounded-2xl">
                 <Image
                     fill
                     alt="Logotipo Tienda"
-                    src='/logo.svg'
+                    src='/master-race.webp'
                 />
             </div>
             
