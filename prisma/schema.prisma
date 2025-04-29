@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -17,6 +16,7 @@ datasource db {
 // modelo de los productos
 model Products { 
   id  String @id @default(auto()) @map("_id") @db.ObjectId
+  code Int
   name String
   description String
   quantity Int
