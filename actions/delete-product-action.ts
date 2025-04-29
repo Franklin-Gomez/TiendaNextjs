@@ -1,8 +1,5 @@
 "use client"
 
-import { string } from "zod"
-
-
 export async function deleteProduct( id : string ) { 
 
     try {

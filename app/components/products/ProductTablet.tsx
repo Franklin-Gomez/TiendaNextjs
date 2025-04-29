@@ -7,7 +7,7 @@ import { useEffect } from "react"
 import { deleteProduct } from "@/actions/delete-product-action"
 
 export default function ProductTablet() {
-    const { products , removeItem , setProducts } = useStore()
+    const { products , removeItem , setProducts, searchTerm  } = useStore()
     
     useEffect(() => { 
         const localData = localStorage.getItem('products')
@@ -19,7 +19,7 @@ export default function ProductTablet() {
             setProducts(JSON.parse(localData!))
 
         } else {
-            
+
             getAllProduct()
 
             setProducts(products)
@@ -29,13 +29,19 @@ export default function ProductTablet() {
 
     const handleDeleteProduct = ( id : string ) =>  { 
 
+        // borramos de la base de datos
         deleteProduct( id )
 
         // eliminamos del state
         removeItem(id)
 
     }
-    
+
+    // filtramos por nombre
+    const ProductosFiltrados = products.filter(productos =>
+        productos.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+
 
     return (
         <div>
@@ -51,13 +57,12 @@ export default function ProductTablet() {
                             <th className="px-4 py-2">Cantidad</th>
                             <th className="px-4 py-2">Fecha Creacion</th>
                             <th className="px-4 py-2">Accion</th>
-
                         </tr>
                         
                     </thead>
 
                     <tbody>
-                    {products.map((product) => (
+                    {ProductosFiltrados.map((product) => (
                         <tr key={product.id} className="odd:bg-white even:bg-gray-100">
                             <td className="px-4 py-2">{product.code}</td>
                             <td className="px-4 py-2">{product.name}</td>
@@ -68,6 +73,7 @@ export default function ProductTablet() {
                                 <button
                                     type="button"
                                     onClick={() => handleDeleteProduct(product.id) }
+                                    className="bg-red-400 px-4 py-2 text-white hover:bg-red-800 rounded-xl font-bold cursor-pointer"
                                 >
                                    Eliminar
                                 </button>
@@ -76,14 +82,6 @@ export default function ProductTablet() {
                             
                         </tr>
                     ))} 
-
-                        {/* <tr className="odd:bg-white even:bg-gray-100">
-                            <td className="px-4 py-2">123213</td>
-                            <td className="px-4 py-2">procesador</td>
-                            <td className="px-4 py-2">cerebro del pc </td>
-                            <td className="px-4 py-2">1</td>
-                            <td className="px-4 py-2">30/04/2025</td>
-                        </tr> */}
                     </tbody>
                 </table>
             </div>

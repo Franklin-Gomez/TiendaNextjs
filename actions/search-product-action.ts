@@ -1,4 +1,3 @@
-"use server"
 
 import { prisma } from "@/src/lib/prisma"
 import { SearchSchema } from "@/src/schema"

@@ -1,9 +1,15 @@
 "use client"
 
+import { useStore } from "@/src/store"
+
 export default function ProductSearchForm() {
 
+    const { setSearchTerm  } = useStore();
     const handleSearchForm = ( formData : FormData ) => { 
-        console.log("desde handle search Form")
+
+        const term = formData.get('search')?.toString().toLowerCase() || ''
+
+        setSearchTerm(term)
         
     }
 

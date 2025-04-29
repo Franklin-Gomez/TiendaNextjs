@@ -13,6 +13,8 @@ interface Store {
     products : Product[]
     setProducts: (products: Product[]) => void
     removeItem : ( id : Product['id']) => void
+    searchTerm: string
+    setSearchTerm: (term: string) => void
 }
 
 export const useStore = create<Store> ((set , get ) => ({
@@ -41,5 +43,12 @@ export const useStore = create<Store> ((set , get ) => ({
             products : item
         }))
     },
+
+    searchTerm: '',
+
+    setSearchTerm: (term) => set(
+        { searchTerm: term }
+    ),
+    
 
 }))
