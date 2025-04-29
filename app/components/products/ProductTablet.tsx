@@ -4,14 +4,37 @@ import { getAllProduct } from "@/actions/getAll-product-action"
 import { formatDate } from "@/src/helpers"
 import { useStore } from "@/src/store"
 import { useEffect } from "react"
+import { deleteProduct } from "@/actions/delete-product-action"
 
 export default function ProductTablet() {
-
-    const { products  } = useStore()
+    const { products , removeItem , setProducts } = useStore()
     
     useEffect(() => { 
-        getAllProduct()
+        const localData = localStorage.getItem('products')
+
+        const parsed = localData ? JSON.parse(localData) : []
+
+        if (parsed.length > 0  ) {
+
+            setProducts(JSON.parse(localData!))
+
+        } else {
+            
+            getAllProduct()
+
+            setProducts(products)
+            
+        }
     } ,[])
+
+    const handleDeleteProduct = ( id : string ) =>  { 
+
+        deleteProduct( id )
+
+        // eliminamos del state
+        removeItem(id)
+
+    }
     
 
     return (
@@ -41,7 +64,14 @@ export default function ProductTablet() {
                             <td className="px-4 py-2">{product.description}</td>
                             <td className="px-4 py-2">{product.quantity}</td>
                             <td className="px-4 py-2">{formatDate(product.createdAt)}</td>
-                            <td className="px-4 py-2"></td>
+                            <td className="px-4 py-2">                    
+                                <button
+                                    type="button"
+                                    onClick={() => handleDeleteProduct(product.id) }
+                                >
+                                   Eliminar
+                                </button>
+                            </td>
                             
                             
                         </tr>

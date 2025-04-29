@@ -8,7 +8,9 @@ export async function getAllProduct() {
         
         const res = await fetch('/api/products')
         const products = await res.json()
-    
+        
+        localStorage.setItem('products', JSON.stringify(products))
+
         const { setProducts } = useStore.getState() 
     
         setProducts( products )

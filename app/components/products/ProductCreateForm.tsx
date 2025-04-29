@@ -43,6 +43,8 @@ export default function ProductCreateForm() {
 
             return
         }
+        // actualizamos el localStorage , cuando se crea un nuevo registro
+        localStorage.setItem('products', JSON.stringify(result.data))
 
         toast.success('Producto Creado Correctamente')
         router.push('/products')
