@@ -3,7 +3,14 @@
 import { prisma } from "@/src/lib/prisma"
 import { ProductSchema } from "@/src/schema"
 
-export async function createProduct ( data : unknown ) { 
+type createProductType = { 
+    code: number;
+    name: string;
+    description: string;
+    quantity: number ;
+}
+
+export async function createProduct ( data : createProductType  ) { 
 
     const result = ProductSchema.safeParse( data )
 

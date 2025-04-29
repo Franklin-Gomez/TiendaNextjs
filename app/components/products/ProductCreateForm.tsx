@@ -1,9 +1,52 @@
 "use client"
 
+import { createProduct } from "@/actions/create-product-action"
+import { ProductSchema } from "@/src/schema"
+import { useRouter } from "next/navigation"
+import { toast} from "react-toastify"
+
 export default function ProductCreateForm() {
 
-    const handleCreateForm = ( formData : FormData ) => { 
-        console.log("desde Crear Producto")
+    const router = useRouter()
+
+    const handleCreateForm = async ( formData : FormData ) => { 
+        
+        const data = {
+            code : formData.get('code'),
+            name : formData.get('name'),
+            description : formData.get('description'),
+            quantity : formData.get('quantity')            
+        }
+
+        // validacion del formulario por el cliente
+        const result = ProductSchema.safeParse( data )
+
+        if(!result.success){
+
+            result.error.issues.forEach( issue => { 
+                toast.error( issue.message )
+            })
+
+            return
+
+        }
+
+        // actions
+        const response = await createProduct( result.data )
+
+        // validacion del servidor
+        if( response?.errors ) { 
+            
+            response.errors.forEach( issue => { 
+                toast.error( issue.message )
+            })
+
+            return
+        }
+
+        toast.success('Producto Creado Correctamente')
+        router.push('/products')
+        
         
     }
 

@@ -10,9 +10,8 @@ export const SearchSchema = z.object({
 //ProductForm
 export const ProductSchema = z.object({
 
-    code : z.number()
-        .int()
-        .positive()
+    code : z.string()
+        .transform((value) => parseInt( value ))
         .or(z.number().min(1, {message: 'El codigo es Obligatorio' }))
     ,
     name: z.string()
@@ -23,9 +22,8 @@ export const ProductSchema = z.object({
         .trim()
         .min(1, { message: 'La descripcion no puede ir vacio'})
     ,
-    quantity: z.number()
-        .int()
-        .positive()
+    quantity: z.string()
+        .transform((value) => parseInt( value ))
         .refine((value) => value > 0, { message: 'Cantidad no valido ' })
         .or(z.number().min(1, {message: 'La Categoría es Obligatoria' }))
 })

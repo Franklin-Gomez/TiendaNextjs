@@ -3,6 +3,8 @@ import React from 'react'
 import ProductTablet from '../components/products/ProductTablet'
 import ProductSearchForm from '../components/products/ProductSearchForm'
 import Link from 'next/link'
+import { ToastContainer } from 'react-toastify'
+import ToastNotification from '../components/ui/ToastNotification'
 
 export default function page() {
     return (
@@ -13,8 +15,8 @@ export default function page() {
             <div className="flex flex-col lg:flex-row lg:justify-between gap-5">
 
                 <Link
-                href={'/products/new'}
-                className='bg-amber-300 hover:bg-amber-400 w-full lg:w-auto text-xl px-10 py-3 text-center font-bold cursor-pointer'
+                    href={'/products/new'}
+                    className='bg-amber-300 hover:bg-amber-400 w-full lg:w-auto text-xl px-10 py-3 text-center font-bold cursor-pointer'
                 > Crear Producto </Link>
 
                 <ProductSearchForm/>
@@ -22,6 +24,7 @@ export default function page() {
             </div>
 
             <ProductTablet/>
+
         </div>
     )
 }
