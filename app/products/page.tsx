@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ProductTablet from '../components/products/ProductTablet'
 import ProductSearchForm from '../components/products/ProductSearchForm'
 import Link from 'next/link'

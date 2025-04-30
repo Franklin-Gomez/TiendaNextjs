@@ -1,10 +1,12 @@
+export const dynamic = 'force-dynamic'
+
 import { prisma } from '@/src/lib/prisma'
 import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server' // ← Para App Router
 
-
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest , {params}: {params: Promise<{ id: string }>}) {
     try {
-        const  { id } = await params;
+        const  { id } = await params
 
         await prisma.products.delete({
             where: { id },

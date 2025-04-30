@@ -35,7 +35,7 @@ export default function ProductTablet() {
             setProducts(products)
             
         }
-    } ,[])
+    },[] )
 
     const handleDeleteProduct = ( id : string ) =>  { 
 
