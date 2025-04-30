@@ -1,9 +1,10 @@
 import { prisma } from '@/src/lib/prisma'
 import { NextResponse } from 'next/server'
 
+
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     try {
-        const { id } =  params
+        const  { id } = await params;
 
         await prisma.products.delete({
             where: { id },

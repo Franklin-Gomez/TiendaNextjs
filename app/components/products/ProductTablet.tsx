@@ -55,6 +55,7 @@ export default function ProductTablet() {
 
     // order list , metodo de ordenamiento .sort(este modifica el array original), copia de los productos filtrados
     const sortedProducts = [...ProductosFiltrados].sort((a, b) => {
+        // a y b elementos a comparar
         const aVal = a[sortKey]
         const bVal = b[sortKey]
       
