@@ -9,12 +9,18 @@ type Product = {
     createdAt: Date
 }
 
+type SortKey = 'code' | 'name'  | 'quantity' | 'createdAt'
+type SortOrder = 'asc' | 'desc'
+
 interface Store { 
     products : Product[]
     setProducts: (products: Product[]) => void
     removeItem : ( id : Product['id']) => void
     searchTerm: string
     setSearchTerm: (term: string) => void
+    sortKey: SortKey
+    sortOrder: SortOrder
+    setSort: (key: SortKey) => void
 }
 
 export const useStore = create<Store> ((set , get ) => ({
@@ -50,5 +56,17 @@ export const useStore = create<Store> ((set , get ) => ({
         { searchTerm: term }
     ),
     
+    sortKey: 'createdAt', // valor por default
+    
+    sortOrder: 'asc', // valor por default
+    
+    setSort: (key) => { // parametro es la columna ardenar
+        const { sortKey, sortOrder } = get() // recogemos los valores actuales
+        set({
+            sortKey: key, // actualiza a columna que vamos a ordenar
+            sortOrder: sortKey === key && sortOrder === 'asc' ? 'desc' : 'asc', // permitir el cambio de orden al hacer doble click
+            
+        })
 
+    },
 }))

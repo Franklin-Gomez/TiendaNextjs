@@ -7,11 +7,21 @@ import { useEffect } from "react"
 import { deleteProduct } from "@/actions/delete-product-action"
 
 export default function ProductTablet() {
-    const { products , removeItem , setProducts, searchTerm  } = useStore()
+    const { 
+        products , 
+        removeItem , 
+        setProducts, 
+        searchTerm ,
+        sortKey,
+        sortOrder,
+        setSort
+    } = useStore()
     
+    // recoge datos del localsotrage 
+    // tiene algo -> setea el state  de los productos
+    // no tiene nada -> busca en la base de datos y setea el state
     useEffect(() => { 
         const localData = localStorage.getItem('products')
-
         const parsed = localData ? JSON.parse(localData) : []
 
         if (parsed.length > 0  ) {
@@ -43,6 +53,17 @@ export default function ProductTablet() {
     )
 
 
+    // order list , metodo de ordenamiento .sort(este modifica el array original), copia de los productos filtrados
+    const sortedProducts = [...ProductosFiltrados].sort((a, b) => {
+        const aVal = a[sortKey]
+        const bVal = b[sortKey]
+      
+        if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1
+        if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1
+
+        return 0
+    })
+
     return (
         <div>
             <h1 className="text-center font-bold text-3xl my-4"> Productos </h1>
@@ -51,18 +72,18 @@ export default function ProductTablet() {
                 <table className="min-w-full text-center">
                     <thead className="border-b border-gray-300">
                         <tr> 
-                            <th className="px-4 py-2">Codigo</th>
-                            <th className="px-4 py-2">Nombre del sector</th>
+                            <th className="px-4 py-2 cursor-pointer" onClick={() => setSort('code')}>Codigo</th>
+                            <th className="px-4 py-2 cursor-pointer" onClick={() => setSort('name')}>Nombre del sector</th>
                             <th className="px-4 py-2">Descripcion</th>
-                            <th className="px-4 py-2">Cantidad</th>
-                            <th className="px-4 py-2">Fecha Creacion</th>
+                            <th className="px-4 py-2 cursor-pointer" onClick={() => setSort('quantity')}>Cantidad</th>
+                            <th className="px-4 py-2 cursor-pointer" onClick={() => setSort('createdAt')}>Fecha Creacion</th>
                             <th className="px-4 py-2">Accion</th>
                         </tr>
                         
                     </thead>
 
                     <tbody>
-                    {ProductosFiltrados.map((product) => (
+                    {sortedProducts.map((product) => (
                         <tr key={product.id} className="odd:bg-white even:bg-gray-100">
                             <td className="px-4 py-2">{product.code}</td>
                             <td className="px-4 py-2">{product.name}</td>
